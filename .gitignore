@@ -1,0 +1,7 @@
+*.pyc
+*~
+__pycache__
+rita0702py
+slackbot_settings.py
+/static
+.DS_Store
