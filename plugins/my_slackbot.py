@@ -1,6 +1,8 @@
 from datetime import datetime
 import random
 import csv
+import requests
+import json
 
 from slackbot.bot import Bot
 from slackbot.bot import respond_to
@@ -79,6 +81,19 @@ def questionnaire(message, params):
             channel = message._body['channel'],
             timestamp = ts
         )
+
+@respond_to('東京の天気は？')
+def weather(message):
+    city_id = '130010'
+    url = 'http://weather.livedoor.com/forecast/webservice/json/v1?city=' + city_id
+    data = requests.get(url).json()
+    title = data["title"]
+    forecasts_telop = data["forecasts"][0]['telop']
+    text = data['description']['text']
+    message.send(title)
+    message.send('今日の天気は' + forecasts_telop + 'です！')
+    message.send(text)
+    message.send('お出かけするの？気をつけていってらっしゃい！')
 
 # オウム返し
 # @respond_to('(.*)')
