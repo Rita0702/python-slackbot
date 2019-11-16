@@ -3,6 +3,8 @@ import random
 import csv
 import requests
 import json
+import pya3rt
+import slackbot_settings
 
 from slackbot.bot import Bot
 from slackbot.bot import respond_to
@@ -94,6 +96,15 @@ def weather(message):
     message.send('今日の天気は' + forecasts_telop + 'です！')
     message.send(text)
     message.send('お出かけするの？気をつけていってらっしゃい！')
+
+
+@default_reply()
+def send_message(message):
+    apikey = slackbot_settings.A3RT_AP
+    client = pya3rt.TalkClient(apikey)
+    api_response = client.talk(message.body['text'])
+    reply_message = api_response['results'][0]['reply']
+    message.reply(reply_message)
 
 # オウム返し
 # @respond_to('(.*)')
