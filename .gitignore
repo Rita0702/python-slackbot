@@ -2,6 +2,7 @@
 *~
 __pycache__
 rita0702py
+.env
 slackbot_settings.py
 /static
 .DS_Store
